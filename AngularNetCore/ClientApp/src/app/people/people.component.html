@@ -20,7 +20,10 @@
       <tr *ngFor="let person of people">
         <td>{{person.name}}</td>
         <td>{{person.birthDate | date }}</td>
-        <td><a href="#">Edit</a></td>
+        <td>
+          <button class="btn btn-primary" [routerLink]='["/people-edit", person.id]'>Edit</button>
+          <button class="btn btn-danger">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
