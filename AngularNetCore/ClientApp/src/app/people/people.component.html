@@ -1,0 +1,28 @@
+<h1>People</h1>
+
+<button [routerLink]='["/people-add"]' class="btn-primary">Add Person</button>
+
+<p *ngIf="!(people && people.length) else peopleTable">
+  No records found!
+</p>
+
+<ng-template #peopleTable>
+  <table class="table">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Birth Date </th>
+        <th> Acctions </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let person of people">
+        <td>{{person.name}}</td>
+        <td>{{person.birthDate | date }}</td>
+        <td><a href="#">Edit</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-template>
