@@ -14,6 +14,10 @@ export class PeopleService {
     return this.http.post<IPerson>(`${this.baseUrl}api/people`, person);
   }
 
+  deletePerson(personId: number): Observable<IPerson> {
+    return this.http.delete<IPerson>(`${this.baseUrl}api/people/${personId}`);
+  }
+
   getPeople(): Observable<IPerson[]> {
     return this.http.get<IPerson[]>(`${this.baseUrl}api/people`);
   }
@@ -21,8 +25,8 @@ export class PeopleService {
   getPerson(id: number): Observable<IPerson> {
     return this.http.get<IPerson>(`${this.baseUrl}api/people/${id}`);
   }
+
   updatePerson(person: IPerson): Observable<IPerson> {
-    console.table(person);
     return this.http.put<IPerson>(`${this.baseUrl}api/people/${person.id}`, person);
   }
 }

@@ -15,6 +15,17 @@ export class PeopleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getData();
+  }
+
+  onDelete(personId: number) {
+    this.peopleServie.deletePerson(personId).subscribe(
+      p => this.getData(),
+      error => console.error(error)
+    );
+  }
+
+  private getData(): void {
     this.peopleServie.getPeople().subscribe(
       p => this.people = p,
       error => console.log(error)

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PeopleComponent } from './people/people.component';
 import { PeopleService } from './people/people.service';
+import { PeopleFormComponent } from './people-form/people-form.component';
 
 @NgModule({
   declarations: [
@@ -19,17 +20,21 @@ import { PeopleService } from './people/people.service';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PeopleComponent
+    PeopleComponent,
+    PeopleFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'people', component: PeopleComponent },
+      { path: 'people-add', component: PeopleFormComponent },
+      { path: 'people-edit/:id', component: PeopleFormComponent },
     ])
   ],
   providers: [PeopleService],

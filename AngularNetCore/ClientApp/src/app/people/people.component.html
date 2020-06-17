@@ -22,7 +22,7 @@
         <td>{{person.birthDate | date }}</td>
         <td>
           <button class="btn btn-primary" [routerLink]='["/people-edit", person.id]'>Edit</button>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger" (click)="onDelete(person.id)">Delete</button>
         </td>
       </tr>
     </tbody>
