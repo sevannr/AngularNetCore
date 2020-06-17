@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IPerson } from './person';
 
@@ -23,7 +23,8 @@ export class PeopleService {
   }
 
   getPerson(id: number): Observable<IPerson> {
-    return this.http.get<IPerson>(`${this.baseUrl}api/people/${id}`);
+    let params = new HttpParams().set("address", "true");
+    return this.http.get<IPerson>(`${this.baseUrl}api/people/${id}`, { params });
   }
 
   updatePerson(person: IPerson): Observable<IPerson> {

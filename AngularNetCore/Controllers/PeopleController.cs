@@ -29,9 +29,17 @@ namespace AngularNetCore.Controllers
 
         // GET: api/People/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<Person>> GetPerson([FromRoute] int id, bool address = false)
         {
-            var person = await _context.People.FindAsync(id);
+            if(!ModelState.IsValid)
+            {
+                BadRequest();
+            }
+            Person person =  address 
+                ? await _context.People
+                    .Include(p => p.Addresses)
+                    .SingleOrDefaultAsync(p => p.Id == id)
+                : await _context.People.SingleOrDefaultAsync(p => p.Id == id);
 
             if (person == null)
             {
