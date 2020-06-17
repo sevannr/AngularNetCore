@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PeopleComponent } from './people/people.component';
 import { PeopleService } from './people/people.service';
 import { PeopleFormComponent } from './people-form/people-form.component';
+import { LogInterceptorService } from './services/log-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,14 @@ import { PeopleFormComponent } from './people-form/people-form.component';
       { path: 'people-edit/:id', component: PeopleFormComponent },
     ])
   ],
-  providers: [PeopleService],
+  providers: [
+    PeopleService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LogInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
