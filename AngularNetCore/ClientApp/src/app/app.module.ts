@@ -13,6 +13,7 @@ import { PeopleComponent } from './people/people.component';
 import { PeopleService } from './people/people.service';
 import { PeopleFormComponent } from './people-form/people-form.component';
 import { LogInterceptorService } from './services/log-interceptor.service';
+import { AddressesService } from './addresses/addresses.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LogInterceptorService } from './services/log-interceptor.service';
   ],
   providers: [
     PeopleService,
+    AddressesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

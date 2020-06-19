@@ -64,6 +64,7 @@ namespace AngularNetCore.Controllers
 
             try
             {
+                await this.CreateOrEditAddresses(person.Addresses);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -107,6 +108,21 @@ namespace AngularNetCore.Controllers
             await _context.SaveChangesAsync();
 
             return person;
+        }
+
+        private async Task CreateOrEditAddresses(List<Address> addresses)
+        {
+            List<Address> addressesToCreate = addresses.Where(a => a.Id == 0).ToList();
+            List<Address> addressesToEdit = addresses.Where(a => a.Id != 0).ToList();
+
+            if (addressesToCreate.Any())
+            {
+                await _context.AddRangeAsync(addressesToCreate);
+            }
+            if (addressesToEdit.Any())
+            {
+                _context.UpdateRange(addressesToEdit);
+            }
         }
 
         private bool PersonExists(int id)

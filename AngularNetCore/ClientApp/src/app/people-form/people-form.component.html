@@ -41,28 +41,27 @@
       </div>
     </div>
 
-    <!--
     <div class="form-group">
       <a class="btn btn-primary" (click)="agregarDireccion()">Agregar Dirección</a>
     </div>
 
-    <div formArrayName="direcciones"
-         *ngFor="let direccion of formGroup.get('direcciones').controls; let i = index;">
+    <div formArrayName="addresses"
+         *ngFor="let direccion of formGroup.get('addresses').controls; let i = index;">
       <div [formGroupName]="i">
         <div class="form-group">
-          <label class="col-md-2 control-label" [attr.for]="'calle' + i">
-            Calle
+          <label class="col-md-2 control-label" [attr.for]="'street' + i">
+            street
           </label>
           <div class="col-md-8">
-            <input class="form-control" [attr.id]="'calle' + i" type="text" formControlName="calle" />
+            <input class="form-control" [attr.id]="'street' + i" type="text" formControlName="street" />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label" [attr.for]="'provincia' + i">
-            Provincia
+          <label class="col-md-2 control-label" [attr.for]="'city' + i">
+            city
           </label>
           <div class="col-md-8">
-            <input class="form-control" [attr.id]="'provincia' + i" type="text" formControlName="provincia" />
+            <input class="form-control" [attr.id]="'city' + i" type="text" formControlName="city" />
           </div>
         </div>
         <div class="form-group">
@@ -71,7 +70,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
 
     <div class="form-group">
