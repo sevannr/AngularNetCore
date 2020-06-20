@@ -14,6 +14,7 @@ import { PeopleService } from './people/people.service';
 import { PeopleFormComponent } from './people-form/people-form.component';
 import { LogInterceptorService } from './services/log-interceptor.service';
 import { AddressesService } from './addresses/addresses.service';
+import { LeaveFormService } from './people-form/leave-form.service';
 
 @NgModule({
   declarations: [
@@ -35,13 +36,14 @@ import { AddressesService } from './addresses/addresses.service';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'people', component: PeopleComponent },
-      { path: 'people-add', component: PeopleFormComponent },
-      { path: 'people-edit/:id', component: PeopleFormComponent },
+      { path: 'people-add', component: PeopleFormComponent, canDeactivate: [LeaveFormService] },
+      { path: 'people-edit/:id', component: PeopleFormComponent, canDeactivate: [LeaveFormService] },
     ])
   ],
   providers: [
     PeopleService,
     AddressesService,
+    LeaveFormService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

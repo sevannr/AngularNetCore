@@ -12,12 +12,14 @@ import { AddressesService } from '../addresses/addresses.service';
   templateUrl: './people-form.component.html',
   styleUrls: ['./people-form.component.css']
 })
-export class PeopleFormComponent implements OnInit {
 
+export class PeopleFormComponent implements OnInit {
   formGroup: FormGroup;
   isEdition: boolean;
   personId: number;
+  //addresses: number[] = [];
   addressesABorrar: number[] = [];
+  ignorePendingChanges: boolean;
 
   constructor(
     private addressesService: AddressesService,
@@ -27,7 +29,7 @@ export class PeopleFormComponent implements OnInit {
     private peopleService: PeopleService) { }
 
   ngOnInit() {
-
+    this.ignorePendingChanges = false;
     this.activatedRoute.params.subscribe(params => {
       if (params["id"] == undefined) {
         this.loadForm();
@@ -54,14 +56,18 @@ export class PeopleFormComponent implements OnInit {
     });
 
     let addresses = this.formGroup.controls['addresses'] as FormArray;
-    person.addresses.map(address => {
-      let addressFG = this.construirDireccion();
-      addressFG.patchValue(address);
-      addresses.push(addressFG);
-    });
+    if (person) {
+      person.addresses.map(address => {
+        let addressFG = this.construirDireccion();
+        addressFG.patchValue(address);
+        addresses.push(addressFG);
+      });
+    }
   }
 
   private onSave() {
+    this.ignorePendingChanges = true;
+
     let person: IPerson = Object.assign({}, this.formGroup.value);
     if (this.isEdition) {
       person.id = parseInt(this.personId.toString());
@@ -87,11 +93,13 @@ export class PeopleFormComponent implements OnInit {
     );
   }
 
+  existPendingChanges(): boolean {
+    return this.ignorePendingChanges ? false : !this.formGroup.pristine;
+  }
+
   private onSaveSuccess() {
     this.router.navigate(['/people']);
   }
-
-
 
   agregarDireccion() {
     let direccionArr = this.formGroup.get('addresses') as FormArray;
